@@ -1,6 +1,9 @@
 # 2021/01/06
-- 読み始めた
+### やったこと
+- Part1 読んだ
   - https://limpet.net/mbrubeck/2014/08/08/toy-layout-engine-1.html
+- Part2
+  - https://limpet.net/mbrubeck/2014/08/11/toy-layout-engine-2.html  
 - 環境構築
 # 2021/01/04
 - やったこと
