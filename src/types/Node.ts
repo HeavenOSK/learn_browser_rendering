@@ -1,4 +1,4 @@
-type Node = {
+export type Node = {
   children: Node[]
   nodeType: NodeType
 }
@@ -34,4 +34,4 @@ type ElementData = {
   attributes: AttrMap,
 }
 
-type AttrMap = Map<string, string>;
+export type AttrMap = Map<string, string>;
