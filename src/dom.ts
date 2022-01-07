@@ -1,6 +1,42 @@
 import {isWhitespace} from "@/util/isWhiteSpace";
-import {text, Node, AttrMap, elem} from "@/types/Node";
 
+export type Dom = {
+  children: Dom[]
+  nodeType: NodeType
+}
+
+export const text = (data: string): Dom => {
+  return {
+    children: [],
+    nodeType: {
+      data: data,
+    },
+  }
+}
+export const elem = (name: string, attrs: AttrMap, children: Dom[]): Dom => {
+  return {
+    children: children,
+    nodeType: {
+      data: {
+        tagName: name,
+        attributes: attrs,
+      },
+    },
+  }
+}
+
+type NodeType = Text | Element
+
+type Text = { data: string }
+
+type Element = { data: ElementData }
+
+type ElementData = {
+  tagName: string
+  attributes: AttrMap,
+}
+
+export type AttrMap = Map<string, string>;
 const alphabetOrNumberPattern = /[0-9a-zA-Z]/
 
 class Parser {
@@ -48,7 +84,7 @@ class Parser {
     })
   }
 
-  parseNode(): Node {
+  parseNode(): Dom {
     switch (this.nextChar()) {
       case '<':
         return this.parseElement()
@@ -57,13 +93,13 @@ class Parser {
     }
   }
 
-  parseText(): Node {
+  parseText(): Dom {
     return text(this.consume_while((c) => {
       return c != '<'
     }))
   }
 
-  parseElement(): Node {
+  parseElement(): Dom {
     this.consume_char()
     const tagName = this.parseTagName()
     const attrs = this.parseAttributes()
@@ -107,8 +143,8 @@ class Parser {
     return attributes
   }
 
-  parseNodes(): Node[] {
-    let nodes: Node[] = []
+  parseNodes(): Dom[] {
+    let nodes: Dom[] = []
     while (true) {
       this.consumeWhiteSpace()
       if (this.eof() || this.startsWith("</")) {
@@ -119,7 +155,7 @@ class Parser {
     return nodes
   }
 
-  parse(source: string): Node {
+  parse(source: string): Dom {
     const parser = new Parser(0, source)
     const nodes = parser.parseNodes()
     if (nodes.length == 1) {
