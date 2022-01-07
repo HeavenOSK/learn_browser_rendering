@@ -2,8 +2,11 @@
 - やったこと
   - css.ts の実装
     - https://limpet.net/mbrubeck/2014/08/13/toy-layout-engine-3-css.html
+  - Part 4: Style　を全部読んだ
+    - https://limpet.net/mbrubeck/2014/08/23/toy-layout-engine-4-style.html
 - 次やること
-  - dom.ts, css.ts の動作確認 
+  - Part 4: Style を読みながらコードを書く
+    - https://limpet.net/mbrubeck/2014/08/23/toy-layout-engine-4-style.html
 # 2021/01/06
 ### やったこと
 - Part1 読んで Dom の型を書いた
