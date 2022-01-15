@@ -25,13 +25,13 @@ export const elem = (name: string, attrs: AttrMap, children: Dom[]): Dom => {
   }
 }
 
-type NodeType = Text | Element
+export type NodeType = Text | Element
 
-type Text = { data: string }
+export type Text = { data: string }
 
-type Element = { data: ElementData }
+export type Element = { data: ElementData }
 
-type ElementData = {
+export type ElementData = {
   tagName: string
   attributes: AttrMap,
 }

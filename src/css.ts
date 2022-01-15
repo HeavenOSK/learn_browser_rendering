@@ -13,7 +13,7 @@ interface Rule {
   declarations: Declaration[],
 }
 
-type Selector = SimpleSelector
+export type Selector = SimpleSelector
 
 interface SimpleSelector {
   tagName: string | null
@@ -26,7 +26,7 @@ interface Declaration {
   value: Value,
 }
 
-type Value = Keyword | Length | ColorValue
+export type Value = Keyword | Length | ColorValue
 type Keyword = string
 type Length = {
   value: number,
