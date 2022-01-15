@@ -1,4 +1,4 @@
-import {isWhitespace} from "@/util/isWhiteSpace";
+import {isWhitespace} from "./util/isWhiteSpace.js";
 
 export type Dom = {
   children: Dom[]
@@ -39,7 +39,7 @@ export type ElementData = {
 export type AttrMap = Map<string, string>;
 const alphabetOrNumberPattern = /[0-9a-zA-Z]/
 
-class Parser {
+export class Parser {
   pos: number
   input: string
 
@@ -60,26 +60,26 @@ class Parser {
     return this.pos >= this.input.length
   }
 
-  consume_char(): string {
+  consumeChar(): string {
     const nextChar = this.input.charAt(this.pos)
     this.pos += 1
     return nextChar
   }
 
-  consume_while(test: (char: string) => boolean): string {
+  consumeWhile(test: (char: string) => boolean): string {
     let result = ''
     while (!this.eof() && test(this.nextChar())) {
-      result += this.consume_char()
+      result += this.consumeChar()
     }
     return result
   }
 
   consumeWhiteSpace() {
-    this.consume_while((char) => isWhitespace(char))
+    this.consumeWhile((char) => isWhitespace(char))
   }
 
   parseTagName(): string {
-    return this.consume_while((c) => {
+    return this.consumeWhile((c) => {
       return alphabetOrNumberPattern.test(c)
     })
   }
@@ -94,39 +94,39 @@ class Parser {
   }
 
   parseText(): Dom {
-    return text(this.consume_while((c) => {
+    return text(this.consumeWhile((c) => {
       return c != '<'
     }))
   }
 
   parseElement(): Dom {
-    this.consume_char()
+    this.consumeChar()
     const tagName = this.parseTagName()
     const attrs = this.parseAttributes()
-    this.consume_char()
+    this.consumeChar()
 
     const children = this.parseNodes()
 
-    this.consume_char()
-    this.consume_char()
+    this.consumeChar()
+    this.consumeChar()
     this.parseTagName()
-    this.consume_char()
+    this.consumeChar()
     return elem(tagName, attrs, children)
   }
 
   parseAttr(): [string, string] {
     const name = this.parseTagName()
-    this.consume_char()
+    this.consumeChar()
     const value = this.parseAttrValue()
     return [name, value]
   }
 
   parseAttrValue(): string {
-    const openQuote = this.consume_char()
-    const value = this.consume_while((c) => {
+    const openQuote = this.consumeChar()
+    const value = this.consumeWhile((c) => {
       return c != openQuote
     })
-    this.consume_char()
+    this.consumeChar()
     return value
   }
 
@@ -155,7 +155,7 @@ class Parser {
     return nodes
   }
 
-  parse(source: string): Dom {
+  static parse(source: string): Dom {
     const parser = new Parser(0, source)
     const nodes = parser.parseNodes()
     if (nodes.length == 1) {

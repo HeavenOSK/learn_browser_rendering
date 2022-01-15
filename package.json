@@ -10,6 +10,9 @@
     "ts-run": "node --loader ts-node/esm src/index.ts"
   },
   "type": "module",
+  "engines": {
+    "node": "14.x"
+  },
   "dependencies": {
     "@types/node": "^17.0.8",
     "eslint": "^7.32.0",
