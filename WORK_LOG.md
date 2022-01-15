@@ -1,6 +1,12 @@
 # 2022/01/15
 
 - やること
+    - Style の記事を進める
+        - https://limpet.net/mbrubeck/2014/08/23/toy-layout-engine-4-style.html
+
+# 2022/01/15
+
+- 目指すこと
     - TypeScript で動くものを作る
 - やったこと
     - サンプルの html, css ファイルを用意して読み込めるようにした
@@ -11,6 +17,7 @@
     - parse error どうやるの?
         - https://www.w3.org/TR/CSS2/syndata.html#parsing-errors
         - https://limpet.net/mbrubeck/2014/08/13/toy-layout-engine-3-css.html
+        - https://www.w3.org/TR/CSS2/syndata.html#parsing-errors
 
 # 2022/01/08
 
