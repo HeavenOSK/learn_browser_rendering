@@ -1,39 +1,57 @@
 import {isWhitespace} from "./util/isWhiteSpace.js";
 
-export type Dom = {
-  children: Dom[]
+export type Node = {
+  children: Node[]
   nodeType: NodeType
 }
 
-export const text = (data: string): Dom => {
+export const text = (data: string): Node => {
   return {
     children: [],
     nodeType: {
+      nodeTypeName: 'text',
       data: data,
-    },
+    } as Text,
   }
 }
-export const elem = (name: string, attrs: AttrMap, children: Dom[]): Dom => {
+export const elem = (name: string, attrs: AttrMap, children: Node[]): Node => {
   return {
     children: children,
     nodeType: {
+      nodeTypeName: 'element',
       data: {
         tagName: name,
         attributes: attrs,
-      },
-    },
+      }
+    } as Element,
   }
 }
 
-export type NodeType = Text | Element
+type NodeTypeName = 'element' | 'text'
 
-export type Text = { data: string }
+export interface NodeType {
+  nodeTypeName: NodeTypeName
+}
 
-export type Element = { data: ElementData }
+export type Text = { data: string } & NodeType
+
+export type Element = { data: ElementData } & NodeType
 
 export type ElementData = {
   tagName: string
   attributes: AttrMap,
+}
+
+export const getIdFromElementData = (elem: ElementData): string | null => {
+  return elem.attributes.get('id') ?? null
+}
+
+export const getClassesFromElementData = (elem: ElementData): string[] => {
+  const classList = elem.attributes.get('class')
+  if (!classList) {
+    return []
+  }
+  return classList.split(' ')
 }
 
 export type AttrMap = Map<string, string>;
@@ -84,7 +102,7 @@ export class Parser {
     })
   }
 
-  parseNode(): Dom {
+  parseNode(): Node {
     switch (this.nextChar()) {
       case '<':
         return this.parseElement()
@@ -93,13 +111,13 @@ export class Parser {
     }
   }
 
-  parseText(): Dom {
+  parseText(): Node {
     return text(this.consumeWhile((c) => {
       return c != '<'
     }))
   }
 
-  parseElement(): Dom {
+  parseElement(): Node {
     this.consumeChar()
     const tagName = this.parseTagName()
     const attrs = this.parseAttributes()
@@ -143,8 +161,8 @@ export class Parser {
     return attributes
   }
 
-  parseNodes(): Dom[] {
-    let nodes: Dom[] = []
+  parseNodes(): Node[] {
+    let nodes: Node[] = []
     while (true) {
       this.consumeWhiteSpace()
       if (this.eof() || this.startsWith("</")) {
@@ -155,7 +173,7 @@ export class Parser {
     return nodes
   }
 
-  static parse(source: string): Dom {
+  static parse(source: string): Node {
     const parser = new Parser(0, source)
     const nodes = parser.parseNodes()
     if (nodes.length == 1) {

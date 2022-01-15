@@ -4,20 +4,24 @@ import {isWhitespace} from "./util/isWhiteSpace.js";
 const identifierPattern = /[0-9a-zA-Z\-\_]/
 const numberPattern = /[0-9]/
 
-interface SimpleSelector {
+export type SelectorType = 'simple'
+
+export interface Selector {
+  selectorType: SelectorType
+}
+
+export type SimpleSelector = Selector & {
   tagName?: string
   id?: string
   class: string[]
 }
-
-type Selector = SimpleSelector
 
 interface Declaration {
   name: string,
   value: Value,
 }
 
-type Value = Keyword | Length | ColorValue
+export type Value = Keyword | Length | ColorValue
 
 type Unit = 'px'
 
@@ -37,18 +41,18 @@ interface Color {
   a: number,
 }
 
-interface Rule {
+export interface Rule {
   selectors: Selector[]
   declarations: Declaration[]
 }
 
-interface Stylesheet {
+export interface Stylesheet {
   rules: Rule[]
 }
 
-type Specificity = [number, number, number]
+export type Specificity = [number, number, number]
 
-const specificity = (selector: Selector): Specificity => {
+export const specificity = (selector: SimpleSelector): Specificity => {
   const a = selector.id != null ? 1 : 0
   const b = selector.class.length
   const c = selector.tagName != null ? 1 : 0
@@ -107,6 +111,7 @@ export class Parser {
 
   parseSimpleSelector(): SimpleSelector {
     let selector: SimpleSelector = {
+      selectorType: 'simple',
       class: [],
     }
     loop:while (!this.eof()) {
@@ -135,7 +140,7 @@ export class Parser {
   }
 
   parseSelectors(): Selector[] {
-    let selectors: Selector[] = []
+    let selectors: SimpleSelector[] = []
     loop:while (true) {
       selectors.push(this.parseSimpleSelector())
       this.consumeWhiteSpace()
@@ -219,7 +224,7 @@ export class Parser {
   }
 
   parseHexPair(): number {
-    const s = this.input.substr(this.pos, this.pos + 2)
+    const s = this.input.substr(this.pos, 2)
     this.pos += 2
     return Number.parseInt(s, 16)
   }

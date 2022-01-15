@@ -1,8 +1,13 @@
 # 2022/01/15
 
 - やること
-    - Style の記事を進める
+    - Style Tree を作ります
         - https://limpet.net/mbrubeck/2014/08/23/toy-layout-engine-4-style.html
+- やったこと
+    - Style Tree を生成するコード作った
+        - https://limpet.net/mbrubeck/2014/08/23/toy-layout-engine-4-style.html
+    - RGB をパースするコードをバグ修正した
+        - Number.parseInt の第二引数を誤って設定していた。正しくは Length
 
 # 2022/01/15
 
