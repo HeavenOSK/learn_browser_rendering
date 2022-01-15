@@ -1724,6 +1724,18 @@ ncp@^2.0.0:
   resolved "https://registry.yarnpkg.com/ncp/-/ncp-2.0.0.tgz#195a21d6c46e361d2fb1281ba38b91e9df7bdbb3"
   integrity sha1-GVoh1sRuNh0vsSgbo4uR6d9727M=
 
+node-bin-setup@^1.0.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/node-bin-setup/-/node-bin-setup-1.1.0.tgz#9df94c41335a8f41958a639b2736f860582a209c"
+  integrity sha512-pTeU6NgUrexiLNtd+AKwvg6cngHMvj5FZ5e2bbv2ogBSIc9yhkXSSaTScfSRZnwHIh5YFmYSYlemLWkiKD7rog==
+
+node@^17.3.1:
+  version "17.3.1"
+  resolved "https://registry.yarnpkg.com/node/-/node-17.3.1.tgz#78342017e8e59f3dee31cf2f4a54a0f549b0d488"
+  integrity sha512-RcGSHR8HZnfo22COHt5/K0QNRudDIhfLjrq5AzipXX5mu8pkjhrpqp4T2+W6pnONOap12RAVcSvzvy8FwFt3hQ==
+  dependencies:
+    node-bin-setup "^1.0.0"
+
 normalize-package-data@^2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/normalize-package-data/-/normalize-package-data-2.5.0.tgz#e66db1838b200c1dfc233225d12cb36520e234a8"

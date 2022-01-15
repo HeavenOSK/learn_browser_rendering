@@ -6,6 +6,7 @@
     - サンプルの html, css ファイルを用意して読み込めるようにした
     - Selector の parse を実装した
         - parseSimpleSelector
+    - CSS の Parser 書けた💡
 - 今度やりたいこと
     - parse error どうやるの?
         - https://www.w3.org/TR/CSS2/syndata.html#parsing-errors
