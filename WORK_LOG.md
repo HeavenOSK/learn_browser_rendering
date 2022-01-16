@@ -1,3 +1,15 @@
+# 2022/01/16
+
+- やること
+    - CSS の基本的な仕様をカバーする文字列の扱いを勉強する
+        - height, width, border-radius, padding, margin
+        - 出力はFlutter でもいい
+- 今度やりたいこと
+    - parse error 処理周りのドキュメントを読む
+        - https://www.w3.org/TR/CSS2/syndata.html#parsing-errors
+        - https://limpet.net/mbrubeck/2014/08/13/toy-layout-engine-3-css.html
+        - https://www.w3.org/TR/CSS2/syndata.html#parsing-errors
+
 # 2022/01/15
 
 - やること
